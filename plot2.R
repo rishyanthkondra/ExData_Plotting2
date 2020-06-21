@@ -7,16 +7,18 @@ req <-  NEI %>%
   select(Emissions,year) %>% 
   group_by(year) %>% 
   summarise(tot_em=sum(Emissions))
-png("plot2.png",bg = "grey")
+png("plot2.png")
 par(bg ="black",fg ="white")
-graph <- with(req,
-              barplot(tot_em,names.arg = year,
-                      xlab = "Year",ylab = expression("Total PM"[2.5]*" emissions in tons"),
-                      ylim = c(0,4000),
-                      col = "orange",col.lab="white",col.axis="red",border = "red",
-                      main = expression("Total PM"[2.5]*" emissions by year in Baltimore City, Maryland"),
-                      col.main = "white")
-)
-text(x = graph,y = round(req$tot_em,2),
-     label = round(req$tot_em,2),col = "white",pos="3",cex=0.8)
+with(req,
+     {plot(year,tot_em,pch = 21,col = "white",bg = "orange",cex =2,
+           xlab = "Year",ylab = expression("Total PM"[2.5]*" emissions(in tons)"),
+           ylim = c(0,4000),xlim=c(1998,2009),
+           col.lab="white",col.axis="red",
+           main = expression("Total PM"[2.5]*" emissions by year in Maryland , Baltimore"),
+           col.main = "white");
+       segments(year,tot_em,year,rep(0,4),lty=2,col="white");
+       lines(year,tot_em,col="blue",lty =2,lwd=2);
+       text(x = year,y = round(tot_em,0)+1,
+            label = round(tot_em,1),col = "white",pos="3",cex=1);
+     })
 dev.off()
