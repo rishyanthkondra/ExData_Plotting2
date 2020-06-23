@@ -1,5 +1,5 @@
-#library(dplyr)
-#NEI <- readRDS("Data/summarySCC_PM25.rds")
+library(dplyr)
+NEI <- readRDS("Data/summarySCC_PM25.rds")
 #SCC <- readRDS("Data/Source_Classification_Code.rds")
 #not required
 req <- NEI %>%
